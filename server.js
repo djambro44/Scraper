@@ -1,13 +1,18 @@
 var cheerio = require("cheerio");
 var axios = require("axios");
 var express = require("express");
-var Article = require("./models/article");
+var db = require("./models/index.js");
 var path = require("path");
 var PORT = process.env.PORT || 3000;
 var app = express();
 var mongoose = require("mongoose");
 var mongooseURL = process.env.MONGODB_URI || "mongodb://localhost/scraper_db";
 mongoose.connect(mongooseURL, { useNewUrlParser: true });
+
+//middle ware
+app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 app.get("/scrape", function (req, res) {
 
@@ -73,6 +78,11 @@ app.get("/articles", function(req, res) {
         res.json(err);
       });
   });
+
+//   app.get("/articles", function(req, res){
+//     res.sendFile(path.join(__dirname, "./public/index.html"));
+
+//   })
   
   // Route for grabbing a specific Article by id, populate it with it's note
   app.get("/articles/:id", function(req, res) {
@@ -92,6 +102,8 @@ app.get("/articles", function(req, res) {
   
   // Route for saving/updating an Article's associated Note
   app.post("/articles/:id", function(req, res) {
+      console.log(req.body);
+      console.log(req.params.id);
     // Create a new note and pass the req.body to the entry
     db.Note.create(req.body)
       .then(function(dbNote) {
@@ -114,6 +126,8 @@ app.get("/articles", function(req, res) {
   app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
   });
+
+
   
 
 
