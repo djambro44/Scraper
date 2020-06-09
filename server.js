@@ -6,8 +6,8 @@ var path = require("path");
 var PORT = process.env.PORT || 3000;
 var app = express();
 var mongoose = require("mongoose");
-
-mongoose.connect("mongodb://localhost/scraper_db", { useNewUrlParser: true });
+var mongooseURL = process.env.MONGODB_URI || "mongodb://localhost/scraper_db";
+mongoose.connect(mongooseURL, { useNewUrlParser: true });
 
 app.get("/scrape", function (req, res) {
 
