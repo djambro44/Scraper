@@ -15,14 +15,14 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.get("/scrape", function (req, res) {
-
-    axios.get("https://www.cbssports.com/fantasy/football/").then(function (response) {
-        // Then, we load that into cheerio and save it to $ for a shorthand selector
-        var $ = cheerio.load(response.data);
-        // console.log($);
+  axios.get("https://www.cbssports.com/fantasy/football/").then(function (response) {
+    // Then, we load that into cheerio and save it to $ for a shorthand selector
+    var $ = cheerio.load(response.data);
+    // console.log($);
+    console.log("scrape route")
 
         // Now, we grab every h2 within an article tag, and do the following:
-        $("h4 > a").each(function (i, element) {
+        $("h5 > a").each(function (i, element) {
             // Save an empty result object
             var result = {};
           // console.log("this is what we need! " + $(this).text());
