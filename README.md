@@ -4,7 +4,7 @@ This App Scrapes for Fantasy Football updates
 
 https://scraper-da.herokuapp.com/
 
-To Scrape add /scrape at the end of the url above to go to the scrape route
+To Scrape add "/scrape" at the end of the url above to go to the scrape route
 
  You will get a propmt saying scrape is complete
 
